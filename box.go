@@ -55,7 +55,7 @@ func (b *box) ExtractByIndex(i int) (Shape, error) {
 	}
 
 	shape := b.shapes[i]
-	copy(b.shapes[:i], b.shapes[i+1:])
+	b.shapes = append(b.shapes[:i], b.shapes[i+1:]...)
 
 	return shape, nil
 }
@@ -106,7 +106,7 @@ func (b *box) RemoveAllCircles() error {
 
 	for i, shape := range b.shapes {
 		if reflect.TypeOf(shape) == reflect.TypeOf(Circle{}) {
-			copy(b.shapes[:i], b.shapes[i+1:])
+			b.shapes = append(b.shapes[:i], b.shapes[i+1:]...)
 			n++
 		}
 	}
