@@ -2,6 +2,7 @@ package golang_united_school_homework
 
 import (
 	"fmt"
+	"reflect"
 )
 
 var errOutOfRange = fmt.Errorf("out of range")
@@ -104,7 +105,8 @@ func (b *box) RemoveAllCircles() error {
 	n := 0
 
 	for i, shape := range b.shapes {
-		if _, ok := shape.(*Circle); ok {
+		switch shape.(type) {
+		case *Circle:
 			b.shapes = append(b.shapes[:i], b.shapes[i+1:]...)
 			n++
 		}
