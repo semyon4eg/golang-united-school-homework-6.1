@@ -105,7 +105,7 @@ func (b *box) RemoveAllCircles() error {
 	n := 0
 
 	for i, shape := range b.shapes {
-		if reflect.TypeOf(shape) == reflect.TypeOf(Circle{}) {
+		if _, ok := shape.(Circle); ok {
 			b.shapes = append(b.shapes[:i], b.shapes[i+1:]...)
 			n++
 		}
