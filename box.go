@@ -5,6 +5,8 @@ import (
 	"reflect"
 )
 
+var errOutOfRange = fmt.Errorf("out of range")
+
 // box contains list of shapes and able to perform operations on them
 type box struct {
 	shapes         []Shape
@@ -23,7 +25,7 @@ func NewBox(shapesCapacity int) *box {
 func (b *box) AddShape(shape Shape) error {
 
 	if len(b.shapes) + 1 > b.shapesCapacity {
-		return fmt.Errorf("out of capacity")
+		return errOutOfRange
 	}
 
 	b.shapes = append(b.shapes, shape)
@@ -35,8 +37,8 @@ func (b *box) AddShape(shape Shape) error {
 // whether shape by index doesn't exist or index went out of the range, then it returns an error
 func (b *box) GetByIndex(i int) (Shape, error) {
 	
-	if i > len(b.shapes) + 1 {
-		return nil, fmt.Errorf("out of range")
+	if i > len(b.shapes) {
+		return nil, errOutOfRange
 	}
 
 	shape := b.shapes[i]
@@ -48,8 +50,8 @@ func (b *box) GetByIndex(i int) (Shape, error) {
 // whether shape by index doesn't exist or index went out of the range, then it returns an error
 func (b *box) ExtractByIndex(i int) (Shape, error) {
 
-	if i > len(b.shapes) + 1 {
-		return nil, fmt.Errorf("out of range")
+	if i > len(b.shapes) {
+		return nil, errOutOfRange
 	}
 
 	shape := b.shapes[i]
@@ -62,7 +64,7 @@ func (b *box) ExtractByIndex(i int) (Shape, error) {
 // whether shape by index doesn't exist or index went out of the range, then it returns an error
 func (b *box) ReplaceByIndex(i int, shape Shape) (Shape, error) {
 	
-	if i > len(b.shapes) + 1 {
+	if i > len(b.shapes) {
 		return nil, fmt.Errorf("out of range")
 	}
 
