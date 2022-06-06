@@ -103,10 +103,9 @@ func (b *box) RemoveAllCircles() error {
 	
 	n := 0
 
-	for i, shape := range b.shapes {
-		switch shape.(type) {
-		case *Circle, Circle:
-			b.shapes = append(b.shapes[:i], b.shapes[i+1:]...)
+	for i := range b.shapes {
+        if _, ok := b.shapes[i].(*Circle); ok {
+            b.shapes = append(b.shapes[:i], b.shapes[i+1:]...)
 			n++
 		}
 	}
